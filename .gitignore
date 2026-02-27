@@ -1,0 +1,22 @@
+# Environment and secrets — prevent accidental data leaks
+.env
+.env.local
+.env.*.local
+
+# Local telemetry/insights — never commit user data
+insights.jsonl
+*.jsonl
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+.venv/
+ENV/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store

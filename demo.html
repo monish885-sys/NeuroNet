@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdTech Quiz Demo — Privacy-by-Design</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>EdTech Assessment</h1>
+        <p>Please answer the following questions.</p>
+        <div class="question">
+            <label for="q1">1. What is the capital of France?</label>
+            <input type="text" id="q1" class="tracked-input" placeholder="Your answer...">
+        </div>
+        <div class="question">
+            <label for="q2">2. Solve for x: 2x + 5 = 15</label>
+            <input type="text" id="q2" class="tracked-input" placeholder="Your answer...">
+        </div>
+        <button type="button">Submit Answers</button>
+    </div>
+
+    <div class="container actions">
+        <button type="button" id="analyze-btn" class="btn-analyze">Analyze My Behavior</button>
+        <button type="button" id="privacy-mode-btn" class="btn-privacy">Privacy Mode</button>
+    </div>
+
+    <section class="container transparency-section" aria-label="Transparency Dashboard">
+        <h2>Transparency Dashboard</h2>
+        <p class="dashboard-desc">Real-time status: what happens to your data when you analyze.</p>
+        <div id="transparency-dashboard" class="transparency-dashboard"></div>
+    </section>
+
+    <div class="container">
+        <h2>Behavior Analysis</h2>
+        <p id="analysis-result">Click the button to analyze your behavior.</p>
+    </div>
+
+    <div id="popup-container" class="hidden">
+        <div id="popup-content">
+            <h3>AI-Generated Insight</h3>
+            <p id="insight-text"></p>
+            <button type="button" id="close-popup">Close</button>
+        </div>
+    </div>
+
+    <div id="privacy-modal" class="modal hidden" aria-hidden="true">
+        <div class="modal-content">
+            <h3>Privacy Mode — Why We Capture Data & How Purge Protects You</h3>
+            <p>This demo collects minimal telemetry (tab switches, keystroke counts, session length) to classify your state as <strong>Focused</strong>, <strong>Confused</strong>, or <strong>Distracted</strong>. Raw data (e.g. mouse coordinates) never leaves your device.</p>
+            <p><strong>DPDPA-compliant Purge:</strong> After generating an insight, the server overwrites the received payload in memory (shredder) and returns a <strong>Proof-of-Deletion</strong> hash. You can verify that your data was hashed before deletion and not retained in raw form.</p>
+            <button type="button" id="close-privacy-modal">Close</button>
+        </div>
+    </div>
+
+    <script src="telemetry.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="localAnalysis.js"></script>
+</body>
+</html>
