@@ -1,9 +1,20 @@
 import os
 import json
 import hashlib
+from pathlib import Path
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+
+# Load .env if present (so GOOGLE_API_KEY / LLM_PROVIDER work when running uvicorn)
+_env_file = Path(__file__).resolve().parent / ".env"
+if _env_file.exists():
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(_env_file)
+    except ImportError:
+        pass
 
 from llm_providers import generate_insight
 

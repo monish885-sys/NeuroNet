@@ -1,7 +1,7 @@
 """
 Pluggable LLM layer: add your required LLM via env or by implementing generate_insight().
 
-Set LLM_PROVIDER in .env to one of: gemini, openai, ollama, or leave unset for gemini (default).
+Set LLM_PROVIDER in .env to one of: gemini, openai, ollama, mock (for testing), or leave unset for gemini (default).
 Add new providers by extending PROVIDERS and implementing the same interface.
 """
 
@@ -34,8 +34,9 @@ def _gemini_generate(prompt: str) -> str:
     if not api_key:
         raise RuntimeError("GOOGLE_API_KEY not set. Add it to .env or use another LLM_PROVIDER.")
     genai.configure(api_key=api_key)
+    model_name = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
     model = genai.GenerativeModel(
-        "gemini-1.5-flash-latest",
+        model_name,
         system_instruction=DEFAULT_SYSTEM_INSTRUCTION,
     )
     response = model.generate_content(prompt)
@@ -94,11 +95,18 @@ def _ollama_generate(prompt: str) -> str:
         raise RuntimeError(f"Ollama request failed (is Ollama running?): {e}") from e
 
 
+# --- Mock (for testing without API key / quota) ---
+def _mock_generate(prompt: str) -> str:
+    """Returns a fixed insight for testing. Set LLM_PROVIDER=mock to use."""
+    return "Focused: The user showed consistent engagement with minimal tab switching and moderate keystrokes."
+
+
 # --- Registry: add your LLM here ---
 PROVIDERS = {
     "gemini": _gemini_generate,
     "openai": _openai_generate,
     "ollama": _ollama_generate,
+    "mock": _mock_generate,
 }
 
 

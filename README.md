@@ -57,6 +57,8 @@ No lock-in: the backend only calls `generate_insight(prompt)`; the implementatio
 3. **Frontend**
    - Open `demo.html` in a browser (or serve the folder with any static server).
 
+**One-command run & test:** `./run_and_test.sh` starts the backend and a static server, runs a quick API check, then prints the frontend URL. Use `LLM_PROVIDER=mock` for testing without an API key (e.g. `LLM_PROVIDER=mock ./run_and_test.sh`).
+
 ---
 
 ## Repo Layout
